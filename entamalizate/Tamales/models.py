@@ -25,11 +25,19 @@ class Clientes(models.Model):
     def __str__(self):
         return str(self.Nombre)
 
+class Metodo_Pago(models.Model):
+    ID_Metodo = models.AutoField(primary_key=True)
+    Nombre      = models.CharField(max_length=50)
+
+    def __str__(self):
+        return str(self.Nombre)
+
 class Pedidos(models.Model):
     ID_Pedido    = models.AutoField(primary_key=True)
     Cliente      = models.ForeignKey(Clientes,on_delete=models.CASCADE,)
     Fecha_Inicio = models.DateTimeField()
     Fecha_Final  = models.DateTimeField()
+    Metodo_Pago  = models.ForeignKey(Metodo_Pago,on_delete=models.CASCADE)
     # Orden        = models.ManyToManyField(Productos,on_delete=models.CASCADE,)
 
     def __str__(self):

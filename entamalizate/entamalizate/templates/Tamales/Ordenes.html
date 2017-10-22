@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Pedidos Productos</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h2>Tabla de Pedidos</h2>
+  <p>Esta tabla contiene todos los pedidos de los clientes</p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Cliente</th>
+        <th>Numero Pedido</th>
+        <th>Metodo de pago</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for i in Pedidos%}
+        <tr>
+          <td>{{i.Cliente}}</td>
+          <td>{{i}}</td>
+          <td>{{i.Metodo_Pago}}</td>
+          <td>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Producto</th>
+                  <th>Cantidad</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for e in Productos_P%}
+                  {% if i == e.Pedido %}
+                    <tr>
+                      <td>{{e.Producto}}</td>
+                      <td>{{e.Cantidad}}</td>
+                      <td>{{e.Total_Pagar}}</td>
+                    </tr>
+                  {% endif %}
+                {% endfor %}
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      {% endfor %}
+
+
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
+<!-- {% for i in Pedidos%}
+  <p>Cliente:{{i.Cliente}}</p>
+  <p>Pedido:{{i}}</p>
+  <p>Pago:{{i.Metodo_Pago}}</p>
+  {% for e in Productos_P%}
+    {% if i == e.Pedido %}
+    <p>     Producto: {{e.Producto}}</p>
+    <p>     Cantidad: {{e.Cantidad}}</p>
+    <p>     Total: {{e.Total_Pagar}}</p>
+    {% endif %}
+  {% endfor %}
+
+  <p>----------------------------</p>
+{% endfor %} -->

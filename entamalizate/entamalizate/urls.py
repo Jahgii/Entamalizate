@@ -15,7 +15,18 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
+
+from .views import home
+from . import views
+from Tamales.views import ProductosVista, ClientesVista, Registro_orden
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-]
+    url(r'^$', views.home, name='home'),
+    url(r'^tamales/consulta1$', ProductosVista.as_view(), name='consulta1'),
+    url(r'^tamales/consulta2$', ClientesVista.as_view(), name='consulta2'),
+    url(r'^tamales/consulta3$', Registro_orden, name='consulta3'),
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
