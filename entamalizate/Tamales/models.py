@@ -47,6 +47,7 @@ class Productos(models.Model):
     ID_Producto = models.AutoField(primary_key=True)
     Nombre      = models.CharField(max_length=50)
     Precio      = models.FloatField()
+    imagen      = models.ImageField(upload_to='tamales/')
 
     def __str__(self):
         return str(self.Nombre)

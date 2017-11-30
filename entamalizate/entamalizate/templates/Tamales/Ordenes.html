@@ -34,6 +34,7 @@
                   <th>Producto</th>
                   <th>Cantidad</th>
                   <th>Total</th>
+                  <th>Foto</th>
                 </tr>
               </thead>
               <tbody>
@@ -43,6 +44,7 @@
                       <td>{{e.Producto}}</td>
                       <td>{{e.Cantidad}}</td>
                       <td>{{e.Total_Pagar}}</td>
+                      <td><img src="/media/{{e.Producto.imagen}}" class="img-responsive" height="128" width="128" alt=""></td>
                     </tr>
                   {% endif %}
                 {% endfor %}
