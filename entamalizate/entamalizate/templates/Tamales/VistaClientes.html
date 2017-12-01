@@ -1,4 +1,19 @@
 {% for object in object_list %}
+
 <p>{{object}} - {{object.Apellido}} - {{object.Direccion}} - {{object.Correo}} - {{object.Usuario}}</p>
 
 {% endfor %}
+
+<form {%if form_id%} id='{{form_id}}' {%endif%} class="form"  method="POST" action="{% if action_url %}{{ action_url }}{% endif %}" >
+      {% csrf_token %}
+
+      <div class="control">
+        <!-- <textarea class="textarea"  name="content" required="" id="id_content" maxlength="140" placeholder="Tweet Please"></textarea> -->
+        {{form.as_p}}
+        <input class="button is-primary is-block is-alt is-large" type="submit" name="" value="{{btn_title}}">
+      </div>
+
+      <!-- <input type="submit" name="" value="{{btn_title}}"> -->
+      <!-- <input type="submit" name="" value="Tweet"> -->
+
+</form>

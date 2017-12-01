@@ -2,7 +2,7 @@ from django.utils.timesince import timesince
 from rest_framework import serializers
 
 from accounts.api.serializers import UserDisplaySerializer
-from .models import  Pedidos
+from .models import  Pedidos, Clientes
 
 class PedidoModelSerializer(serializers.ModelSerializer):
     user = UserDisplaySerializer(read_only=True)
@@ -11,11 +11,11 @@ class PedidoModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pedidos
         fields = [
-            'user',
-            'content',
-            'created',
-            'date_display',
-            'timesince'
+            'ID_Pedido',
+            'Cliente',
+            'Fecha_Inicio',
+            'Fecha_Final',
+            'Metodo_Pago'
         ]
 
     def get_date_display(self, obj):

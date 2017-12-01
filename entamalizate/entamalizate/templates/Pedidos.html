@@ -19,54 +19,71 @@
 
 {% endblock %}
 
+{% block Nosotros %}
+
+{% endblock %}
+
+{% block Contacto %}
+
+{% endblock %}
+
 {% block Grid %}
 <hr><hr><hr><hr><hr><hr>
   <div class="container" class="col">
     <h2>Tabla de Pedidos</h2>
     <p>Esta tabla contiene todos los pedidos de los clientes</p>
+    <a class="btn btn-primary" href="orden/create/" role="button">Agregar un pedido</a>
+    <hr>
+    {% for i in Pedidos%}
     <table class="table" class="col">
       <thead>
         <tr>
           <th>Cliente</th>
           <th>Numero Pedido</th>
           <th>Metodo de pago</th>
+          <th>Opciones</th>
         </tr>
       </thead>
       <tbody>
-        {% for i in Pedidos%}
+
           <tr>
             <td>{{i.Cliente}}</td>
             <td>{{i}}</td>
             <td>{{i.Metodo_Pago}}</td>
-            <td>
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>Producto</th>
-                    <th>Cantidad</th>
-                    <th>Total</th>
-                    <th>Foto</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for e in Productos_P%}
-                    {% if i == e.Pedido %}
-                      <tr>
-                        <td>{{e.Producto}}</td>
-                        <td>{{e.Cantidad}}</td>
-                        <td>{{e.Total_Pagar}}</td>
-                        <td><img src="/media/{{e.Producto.imagen}}" class="img-responsive" height="128" width="128" alt=""></td>
-                      </tr>
-                    {% endif %}
-                  {% endfor %}
-                </tbody>
-              </table>
-            </td>
+            <td><a class="btn btn-danger" href="orden/{{i.ID_Pedido}}/delete/" role="button">Eliminar</a><hr>
+                <a class="btn btn-success" href="orden/producto/{{i.ID_Pedido}}/create/" role="button">Agregar</a></td>
           </tr>
-        {% endfor %}
-
-
       </tbody>
     </table>
+
+    <div class="container">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Cantidad</th>
+              <th>Total</th>
+              <th>Foto</th>
+              <th>Opciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for e in Productos_P%}
+              {% if i == e.Pedido %}
+                <tr>
+                  <td>{{e.Producto}}</td>
+                  <td>{{e.Cantidad}}</td>
+                  <td>{{e.Total_Pagar}}</td>
+                  <td><img src="/media/{{e.Producto.imagen}}" class="img-responsive" height="128" width="128" alt=""></td>
+                  <td><a class="btn btn-danger" href="orden/producto/{{e.ID}}/delete/" role="button">Eliminar</a><hr>
+                      <a class="btn btn-success" href="orden/producto/{{e.ID}}/update/" role="button">Modificar</a></td>
+                </tr>
+
+              {% endif %}
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
+    {% endfor %}
   </div>
 {% endblock %}

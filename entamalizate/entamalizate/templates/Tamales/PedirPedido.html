@@ -20,57 +20,9 @@
 {% endblock %}
 
 {% block Grid %}
-<hr><hr><hr><hr><hr><hr>
-  <div class="container" class="col">
-    <h2>Tabla de Pedidos</h2>
-    <p>Esta tabla contiene todos los pedidos de los clientes</p>
-    <table class="table" class="col">
-      <thead>
-        <tr>
-          <th>Cliente</th>
-          <th>Numero Pedido</th>
-          <th>Metodo de pago</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for i in Pedidos%}
-          <tr>
-            <td>{{i.Cliente}}</td>
-            <td>{{i}}</td>
-            <td>{{i.Metodo_Pago}}</td>
-            <td>
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>Producto</th>
-                    <th>Cantidad</th>
-                    <th>Total</th>
-                    <th>Foto</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for e in Productos_P%}
-                    {% if i == e.Pedido %}
-                      <tr>
-                        <td>{{e.Producto}}</td>
-                        <td>{{e.Cantidad}}</td>
-                        <td>{{e.Total_Pagar}}</td>
-                        <td><img src="/media/{{e.Producto.imagen}}" class="img-responsive" height="128" width="128" alt=""></td>
-                      </tr>
-                    {% endif %}
-                  {% endfor %}
-                </tbody>
-              </table>
-            </td>
-          </tr>
-        {% endfor %}
-
-
-      </tbody>
-    </table>
-  </div>
 
 <body>
+  <hr><hr><hr><hr><hr><hr><hr><hr><hr>
     <form class="form" action="" method="POST">
       {% csrf_token %}
       {{form.as_p}}

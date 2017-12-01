@@ -6,8 +6,10 @@ from django.shortcuts import render
 
 from django.contrib.auth.decorators import login_required
 from .models import Productos, Clientes, Pedido_Productos, Usuarios, Pedidos, Metodo_Pago
-from django.views.generic import ListView, CreateView
-from .forms import TamalesModelForm
+from django.views.generic import ListView, CreateView, DeleteView, UpdateView
+from .forms import PedidosProductosModelForm, PedidosModelForm
+from django.db.models import Q
+from django.urls import reverse_lazy
 #from .mixin import FormUserNeededMixin
 from django.contrib.auth.views import login
 from django.contrib.auth.views import logout
@@ -41,19 +43,36 @@ class RegistrationView(BaseRegistrationView):
     def get_success_url(self, user):
         return '/'
 
-class TamalesCreateView(CreateView):
-    form_class = TamalesModelForm
+        # Clases definidas para borrar pedido y producto contenido en un pedido.
+class PedidoDeleteView(DeleteView):
+    model = Pedidos
+    template_name = "Tamales/delete_confirm.html"
+    success_url = reverse_lazy("VistaOrdenes")
+
+class Pedido_ProductosDeleteView(DeleteView):
+    model = Pedido_Productos
+    template_name = "Tamales/delete_confirm.html"
+    success_url = reverse_lazy("VistaOrdenes")
+
+        #Clases para agregar un pedido y agregar productos.
+class PedidoCreateView(CreateView):
+    form_class = PedidosModelForm
     template_name = "Tamales/PedirPedido.html"
-    success_url = "/tamales/consulta3"
+    success_url = reverse_lazy("VistaOrdenes")
 
-class ProductosVista(ListView):
-    template_name = "Tamales/VistaProductos.html"
-    queryset = Productos.objects.all()
+class Pedido_ProductosCreateView(CreateView):
+    form_class = PedidosProductosModelForm
+    template_name = "Tamales/PedirPedido.html"
+    success_url = reverse_lazy("VistaOrdenes")
 
-class ClientesVista(ListView):
-    template_name = "Tamales/VistaClientes.html"
-    queryset = Clientes.objects.all()
+        #Clases para actualizar un pedido y productos contenidos en él.
+class Pedido_ProductosUpdateView(UpdateView):
+    queryset = Pedido_Productos.objects.all()
+    form_class = PedidosProductosModelForm
+    template_name = "Tamales/update_view.html"
+    success_url = reverse_lazy("VistaOrdenes")
 
+        #funciones definidas no se usan
 def Registro_orden(request):
     result_set01 = Pedidos.objects.all() #Cliente__ID_Cliente=2 ; filter(Pedido__Cliente=3)
     result_set02 = Pedido_Productos.objects.all()

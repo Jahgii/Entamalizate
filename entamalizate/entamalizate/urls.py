@@ -21,8 +21,10 @@ from django.views.static import serve
 
 from .views import home
 from . import views
-from Tamales.views import ProductosVista, ClientesVista, Registro_orden, Hacer_Pedido
-from Tamales.views import TamalesCreateView, RegistrationView
+from Tamales.views import Registro_orden, Hacer_Pedido  #Funciones
+    #Clases
+from Tamales.views import RegistrationView, PedidoDeleteView, Pedido_ProductosDeleteView, Pedido_ProductosCreateView
+from Tamales.views import Pedido_ProductosUpdateView, PedidoCreateView
 
 
 urlpatterns = [
@@ -30,11 +32,13 @@ urlpatterns = [
     url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^$', views.home, name='home'),
     url(r'^pedido$', views.Pedido, name='pedido'),
-    url(r'^tamales/consulta1$', ProductosVista.as_view(), name='consulta1'),
-    url(r'^tamales/consulta2$', ClientesVista.as_view(), name='consulta2'),
-    url(r'^tamales/consulta3$', Registro_orden, name='consulta3'),
-    url(r'^tamales/ordenar$', Hacer_Pedido, name='consulta3'),
-    url(r'^tamales/create$', TamalesCreateView.as_view(), name='tamales_create'),
+    url(r'^tamales/vistaordenes$', Registro_orden, name='VistaOrdenesSinBotones'),
+    url(r'^tamales/ordenar$', Hacer_Pedido, name='VistaOrdenes'),
+    url(r'^tamales/orden/(?P<pk>\d+)/delete/$', PedidoDeleteView.as_view(), name='orden_delete'),
+    url(r'^tamales/orden/create/$', PedidoCreateView.as_view(), name='orden_create'),
+    url(r'^tamales/orden/producto/(?P<pk>\d+)/delete/$', Pedido_ProductosDeleteView.as_view(), name='producto_delete'),
+    url(r'^tamales/orden/producto/(?P<pk>\d+)/create/$', Pedido_ProductosCreateView.as_view(), name='producto_create'),
+    url(r'^tamales/orden/producto/(?P<pk>\d+)/update/$', Pedido_ProductosUpdateView.as_view(), name='producto_update'),
     url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
     url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
