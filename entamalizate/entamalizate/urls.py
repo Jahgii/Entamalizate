@@ -21,24 +21,36 @@ from django.views.static import serve
 
 from .views import home
 from . import views
-from Tamales.views import Registro_orden, Hacer_Pedido  #Funciones
+from accounts.views import UserRegisterView
+
+    #Funciones
+from Tamales.views import Registro_orden, Hacer_Pedido
+
     #Clases
-from Tamales.views import RegistrationView, PedidoDeleteView, Pedido_ProductosDeleteView, Pedido_ProductosCreateView
-from Tamales.views import Pedido_ProductosUpdateView, PedidoCreateView
+from Tamales.views import PedidoDeleteView, Pedido_ProductosDeleteView, Pedido_ProductosCreateView
+from Tamales.views import Pedido_ProductosUpdateView, PedidoCreateView, Pedido_ProductosListView, PedidosListView
 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^accounts/', include('registration.backends.simple.urls')),
-    url(r'^$', views.home, name='home'),
-    url(r'^pedido$', views.Pedido, name='pedido'),
-    url(r'^tamales/vistaordenes$', Registro_orden, name='VistaOrdenesSinBotones'),
-    url(r'^tamales/ordenar$', Hacer_Pedido, name='VistaOrdenes'),
-    url(r'^tamales/orden/(?P<pk>\d+)/delete/$', PedidoDeleteView.as_view(), name='orden_delete'),
-    url(r'^tamales/orden/create/$', PedidoCreateView.as_view(), name='orden_create'),
+    url(r'^$',      views.home, name='home'),
+        #Funciones
+    url(r'^pedido$',            views.Pedido, name='pedido'),
+    url(r'^tamales/ordenar$',   Hacer_Pedido, name='VistaOrdenes'),
+        #Vistas
+    url(r'^tamales/lista/detalle$',                      Pedido_ProductosListView.as_view(),   name='pedido_productos_lista'),
+    url(r'^tamales/lista$',                              PedidosListView.as_view(),            name='pedidos_lista'),
+    url(r'^tamales/orden/(?P<pk>\d+)/delete/$',          PedidoDeleteView.as_view(),           name='orden_delete'),
+    url(r'^tamales/orden/create/$',                      PedidoCreateView.as_view(),           name='orden_create'),
     url(r'^tamales/orden/producto/(?P<pk>\d+)/delete/$', Pedido_ProductosDeleteView.as_view(), name='producto_delete'),
     url(r'^tamales/orden/producto/(?P<pk>\d+)/create/$', Pedido_ProductosCreateView.as_view(), name='producto_create'),
     url(r'^tamales/orden/producto/(?P<pk>\d+)/update/$', Pedido_ProductosUpdateView.as_view(), name='producto_update'),
-    url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
-    url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+        #path
+    url(r'^static/(?P<path>.*)$',   serve, {'document_root': settings.STATIC_ROOT}),
+    url(r'^media/(?P<path>.*)$',    serve, {'document_root': settings.MEDIA_ROOT}),
+        #api
+    url(r'^api/tamales/', include ('Tamales.api.urls', namespace = 'tamales_api')),
+        #accounts
+    url(r'^accounts/register/$', UserRegisterView.as_view(), name='register'),
+    url(r'^', include('django.contrib.auth.urls')),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

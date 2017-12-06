@@ -2,28 +2,25 @@ from django.db.models import Q
 from rest_framework import generics
 from rest_framework import permissions
 
-from tweet.models import Tweet
-from .serializers import TweetModelSerializer
+from Tamales.models import Pedidos
+from .serializers import PedidoModelSerializer
 
-
-
-
-class TweetCreateAPIView(generics.CreateAPIView):
-    serializer_class = TweetModelSerializer
+class PedidoCreateAPIView(generics.CreateAPIView):
+    serializer_class = PedidoModelSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
-class TweetListAPIView(generics.ListAPIView):
-    serializer_class = TweetModelSerializer
+class PedidoListAPIView(generics.ListAPIView):
+    serializer_class = PedidoModelSerializer
 
     def get_queryset(self, *args, **kwargs):
-        qs = Tweet.objects.all().order_by("-created")
+        qs = Pedidos.objects.all().order_by("-Fecha_Final")
         query = self.request.GET.get("q", None)
         if query is not None:
             qs = qs.filter(
-                            Q(content__icontains=query) |
+                            Q(ID_Pedido__icontains=query) |
                             Q(user__username__icontains=query)
                           )
         return qs

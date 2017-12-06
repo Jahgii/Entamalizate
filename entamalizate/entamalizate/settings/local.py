@@ -37,15 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',
     'rest_framework',
     'Tamales',
 ]
-
-LOGIN_REDIRECT_URL = '/'
-REGISTRATION_OPEN
-ACCOUNT_ACTIVATION_DAYS = 1
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

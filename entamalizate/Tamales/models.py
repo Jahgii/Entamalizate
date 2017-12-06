@@ -20,7 +20,7 @@ class Clientes(models.Model):
     Apellido   = models.CharField(max_length=50)
     Direccion  = models.CharField(max_length=50)
     Correo     = models.EmailField(max_length=50)
-    Usuario    = models.ForeignKey(Usuarios,on_delete=models.CASCADE,)
+    #Usuario    = models.ForeignKey(Usuarios,on_delete=models.CASCADE,)
 
     def __str__(self):
         return str(self.Nombre)
@@ -33,6 +33,7 @@ class Metodo_Pago(models.Model):
         return str(self.Nombre)
 
 class Pedidos(models.Model):
+    user         = models.ForeignKey(settings.AUTH_USER_MODEL)
     ID_Pedido    = models.AutoField(primary_key=True)
     Cliente      = models.ForeignKey(Clientes,on_delete=models.CASCADE,)
     Fecha_Inicio = models.DateTimeField()
@@ -44,6 +45,7 @@ class Pedidos(models.Model):
         return str(self.ID_Pedido)
 
 class Productos(models.Model):
+    #user        = models.ForeignKey(settings.AUTH_USER_MODEL)
     ID_Producto = models.AutoField(primary_key=True)
     Nombre      = models.CharField(max_length=50)
     Precio      = models.FloatField()
@@ -53,6 +55,7 @@ class Productos(models.Model):
         return str(self.Nombre)
 
 class Pedido_Productos(models.Model):
+    user        = models.ForeignKey(settings.AUTH_USER_MODEL)
     ID          = models.AutoField(primary_key=True)
     Pedido      = models.ForeignKey(Pedidos,on_delete=models.CASCADE,)
     Producto    = models.ForeignKey(Productos,on_delete=models.CASCADE,)
