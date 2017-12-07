@@ -7,6 +7,8 @@ class PedidosProductosModelForm(forms.ModelForm):
     class Meta:
         model = Pedido_Productos
         fields = [
+            #"user",
+            "ID",
             "Pedido",
             "Producto",
             "Cantidad",
@@ -16,7 +18,7 @@ class PedidosProductosModelForm(forms.ModelForm):
 class PedidosModelForm(forms.ModelForm):
     # Fecha_Inicio = forms.DateField(widget= forms.SelectDateWidget(empty_label="Nothing"))
     # Fecha_Final  = forms.DateField(widget= forms.SelectDateWidget(empty_label="Nothing"))
-    
+
 
     class Meta:
         model = Pedidos

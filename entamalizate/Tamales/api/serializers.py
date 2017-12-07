@@ -1,8 +1,8 @@
 from django.utils.timesince import timesince
 from rest_framework import serializers
 
-from accounts.api.serializers import UserDisplaySerializer
-from Tamales.models import  Pedidos
+from accounts.api.serializers import UserDisplaySerializer, ProductosDisplaySerializer
+from Tamales.models import  Pedidos, Pedido_Productos
 
 class PedidoModelSerializer(serializers.ModelSerializer):
     user = UserDisplaySerializer(read_only=True)
@@ -26,3 +26,17 @@ class PedidoModelSerializer(serializers.ModelSerializer):
 
     def get_timesince(self, obj):
         return timesince(obj.Fecha_Inicio) + " ago"
+
+class PedidoProductosModelSerializer(serializers.ModelSerializer):
+    user = UserDisplaySerializer(read_only=True)
+    Producto = ProductosDisplaySerializer(read_only=True)
+    class Meta:
+        model = Pedido_Productos
+        fields = [
+            'user',
+            'ID',
+            'Pedido',
+            'Producto',
+            'Cantidad',
+            'Total_Pagar'
+        ]

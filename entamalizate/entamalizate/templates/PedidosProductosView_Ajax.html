@@ -18,27 +18,27 @@ $(document).ready(function(){
   var query = getParameterByName('q');
   console.log(query);
   var nextLibroUrl;
+  var total = 0;
   var con = 0;
 
-  function attachLibro(pedidoValue, prepend){
-    var PedidoUser = pedidoValue.user.username;
-    var PedidoId = pedidoValue.ID_Pedido;
-    var PedidoFI = pedidoValue.Fecha_Inicio;
-    var PedidoFF = pedidoValue.Fecha_Final;
+  function attachLibro(proValue, prepend){
+    var proId = proValue.ID;
+    var proProducto = proValue.ID_Pedido;
+    var proCantidad = proValue.Cantidad;
+    var proImagen = proValue.Producto.imagen;
+
       if (prepend==true){
         $("#ajax_libros").prepend(
           "<div class='card-deck'>"+
              "<div class='card'>"+
-               "<img class='card-img-top' src='...' alt=''>"+
+               "<img class='card-img-top' src='"+ proImagen +"' alt=''>"+
                "<div class='card-block'>"+
-                 "<h4 class='card-title'>Identificador: "+ PedidoId +" </h4>"+
-                 "<p class='card-text'>Usuario: "+ PedidoUser +" </p>"+
-                 "<p class='card-text'>Fecha de pedido: "+ PedidoFI +" </p>"+
-                 "<p class='card-text'>Fecha de entrega: "+ PedidoFF +" </p>"+
+                 "<h4 class='card-title'>Identificador: "+ proId +" </h4>"+
+                 "<p class='card-text'>Producto: "+ proProducto +" </p>"+
+                 "<p class='card-text'>Cantidad: "+ proCantidad +" </p>"+
                "</div>"+
                "<div class='card-footer'>"+
-                 "<small class='text-muted'>"+  +"</small>"+
-                 "<a href='tamales/orden/'"+PedidoId+"'/delete'>  Eliminar</a> "+
+
                "</div>"+
              "</div>"+
            "</div>"+
@@ -47,21 +47,22 @@ $(document).ready(function(){
 
       }else{
         $("#ajax_libros").append(
-          "<div class='card-deck'>"+
+          if (proId == ){}
              "<div class='card'>"+
-               "<img class='card-img-top' src='...' alt=''>"+
+               "<img class='card-img-top' src='"+ proImagen +"' alt=''>"+
                "<div class='card-block'>"+
-               "<h4 class='card-title'>Identificador: "+ PedidoId +" </h4>"+
-               "<p class='card-text'>Usuario: "+ PedidoUser +" </p>"+
-               "<p class='card-text'>Fecha de pedido: "+ PedidoFI +" </p>"+
-               "<p class='card-text'>Fecha de entrega: "+ PedidoFF +" </p>"+
+                 "<h4 class='card-title'>Identificador: "+ proId +" </h4>"+
+                 "<p class='card-text'>Producto: "+ proProducto +" </p>"+
+                 "<p class='card-text'>Cantidad: "+ proCantidad +" </p>"+
+                 "<p class='card-text'>Precio: $18 </p>"+
+                 "<p class='card-text'>Total:"+ (18 * proCantidad)  +" </p>"+
                "</div>"+
                "<div class='card-footer'>"+
-                 "<a href='/tamales/lista/detalle'>  Modificar/Detalle</a> "+ "|"+
-                 "<a href='/tamales/orden/"+ PedidoId +"/delete'>  Eliminar</a> "+
+
                "</div>"+
              "</div>"+
-           "</div>"+
+             (con = con +1)+
+           (total = total + (18 * proCantidad))+
            "<br>"
         )
       }
@@ -70,7 +71,7 @@ $(document).ready(function(){
       console.log("fetching...");
       var fetchUrl;
       if (!url){
-        fetchUrl='/api/tamales/?q=somequery';
+        fetchUrl='/api/tamales/pp/?q=somequery';
       }else{
         fetchUrl=url
       }
@@ -114,7 +115,7 @@ $(document).ready(function(){
      var formData = this_.serialize();
 
        $.ajax({
-         url: "/api/tamales/create/",
+         url: "/api/tamales/pp/create/",
          data:formData,
          method: "POST",
          success: function(data){
@@ -135,7 +136,6 @@ $(document).ready(function(){
 
 </script>
 {%endblock script%}
-
 
 {% block Navegador %}
   <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
@@ -165,20 +165,18 @@ $(document).ready(function(){
 {% endblock %}
 
 {% block Grid %}
-<hr><hr><hr><hr><hr><hr><hr>
-              <!-- Los datos te los estoy enviando en la variable: object_list  -->
+<hr><hr><hr><hr><hr><hr>
 <div class="container">
-  Buscar: {% include "BusquedaPedidos.html" %}
+  Buscar: {% include "BusquedaPedidosProductos.html" %}
 </div>
 
-{% if not request.GET.q %}
-  <div class="">
-    {%include "form.html" with form=create_form action_url=create_url btn_title='Libro' form_id='libro-form'%}
-  </div>
-{% endif %}
+
 <div class="container">
   <h1>Pedidos</h1>
   <div class="container" class="post" id="ajax_libros">
+    "<div class='card-deck'>"
+
+      "</div>"
     <hr>
   </div>
   <hr>
@@ -188,4 +186,62 @@ $(document).ready(function(){
 <div class="container">
   <a class="btn btn-success" href="#" id='loadmore'>Cargar mas libros</a>
 </div>
+    <!-- Imprime lista de pedidos sin funcionalidades -->
+  <!-- <div class="container" class="col">
+    <h2>Tabla de Pedidos</h2>
+    <p>Esta tabla contiene todos los pedidos de los clientes</p>
+    <a class="btn btn-primary" href="/tamales/orden/create/" role="button">Agregar un pedido</a>
+    <hr>
+    {% for i in Pedidos%}
+    <table class="table" class="col">
+      <thead>
+        <tr>
+          <th>Cliente</th>
+          <th>Numero Pedido</th>
+          <th>Metodo de pago</th>
+          <th>Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+
+          <tr>
+            <td>{{i.Cliente}}</td>
+            <td>{{i}}</td>
+            <td>{{i.Metodo_Pago}}</td>
+            <td><a class="btn btn-danger" href="orden/{{i.ID_Pedido}}/delete/" role="button">Eliminar</a><hr>
+                <a class="btn btn-success" href="orden/producto/{{i.ID_Pedido}}/create/" role="button">Agregar</a></td>
+          </tr>
+      </tbody>
+    </table>
+
+    <div class="container">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Cantidad</th>
+              <th>Total</th>
+              <th>Foto</th>
+              <th>Opciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for e in Productos_P%}
+              {% if i == e.Pedido %}
+                <tr>
+                  <td>{{e.Producto}}</td>
+                  <td>{{e.Cantidad}}</td>
+                  <td>{{e.Total_Pagar}}</td>
+                  <td><img src="/media/{{e.Producto.imagen}}" class="img-responsive" height="128" width="128" alt=""></td>
+                  <td><a class="btn btn-danger" href="orden/producto/{{e.ID}}/delete/" role="button">Eliminar</a><hr>
+                      <a class="btn btn-success" href="orden/producto/{{e.ID}}/update/" role="button">Modificar</a></td>
+                </tr>
+
+              {% endif %}
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
+    {% endfor %}
+  </div> -->
 {% endblock %}
