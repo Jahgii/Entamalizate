@@ -142,8 +142,14 @@ $(document).ready(function(){
     <div class="container">
       <a class="navbar-brand js-scroll-trigger" href="#page-top">Pedidos</a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-
         <i class="fa fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="/">HOME</a>
+          </li>
+        </div>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
 
@@ -167,25 +173,30 @@ $(document).ready(function(){
 {% block Grid %}
 <hr><hr><hr><hr><hr><hr><hr>
               <!-- Los datos te los estoy enviando en la variable: object_list  -->
+<<<<<<< HEAD
 <div class="container">
   Buscar: {% include "BusquedaPedidos.html" %}
+=======
+<div class="alert alert-warning">
+  Buscar: {% include "Busqueda.html" %}
+>>>>>>> 4f93407f72678e29730e2cf5ef3dec70f2b5a66d
 </div>
 
 {% if not request.GET.q %}
-  <div class="">
+  <div class="alert alert-success">
     {%include "form.html" with form=create_form action_url=create_url btn_title='Libro' form_id='libro-form'%}
   </div>
 {% endif %}
-<div class="container">
+<div class="alert alert-info">
   <h1>Pedidos</h1>
-  <div class="container" class="post" id="ajax_libros">
+  <div class="alert alert-success" class="post" id="ajax_libros">
     <hr>
   </div>
   <hr>
 </div>
 
 
-<div class="container">
-  <a class="btn btn-success" href="#" id='loadmore'>Cargar mas libros</a>
+<div class="alert alert-danger">
+  <a class="btn btn-success" href="#" id='loadmore'>Cargar mas Pedidos</a>
 </div>
 {% endblock %}

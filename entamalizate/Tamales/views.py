@@ -80,7 +80,6 @@ class Pedido_ProductosListView(FormUserNeededMixin, ListView):
          context['Pedidos'] = Pedidos.objects.filter(user=self.request.user)
          return context
 
-
             #Clase para mostrar una lista de pedidos
 class PedidosListView(ListView):
     template_name = "PedidosView_Ajax.html"

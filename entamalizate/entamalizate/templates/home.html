@@ -52,8 +52,11 @@
             </li>
             {% if user.is_authenticated %}
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="/logout">Cerrar sesion</a>
+              <a class="nav-link js-scroll-trigger" href="/accounts/register/">Registrar</a>
             </li>
+            <!-- <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/login">Login</a>
+            </li> -->
             {% else %}
               <li class="nav-item">
                 <a class="nav-link js-scroll-trigger" href="/login">Login</a>
@@ -76,7 +79,7 @@
           <img class="img-fluid" src="{% static 'img/BULL.png' %}" alt="">
           {% if user.is_authenticated %}
           <div class="intro-text">
-            <span class="name">¡Bienvenido {{user.username}}!</span>
+            <span class="name">¡Bienvenid@ {{user.username}}!</span>
             <hr class="star-light">
             <span class="skills"> ¿A QUE NO PUEDES PROBAR SOLO UNO? </span>
             <p>¿PORQUE SON COMO EL ALKA-SELTZER?</p>
@@ -177,17 +180,17 @@
         <hr class="star-light">
         <div class="row">
           <div class="col-lg-4 ml-auto">
-            <p>Descripción aqui.(breve)</p>
+            <p>Somos una empresa dedicada a sitisfacer su paladar</p>
           </div>
           <div class="col-lg-4 mr-auto">
-            <p>Más descripción aca.(breve)</p>
+            <p>Para que usted {{user.username}} se sienta agusto consumiendolos</p>
           </div>
-          <div class="col-lg-8 mx-auto text-center">
+          <!-- <div class="col-lg-8 mx-auto text-center">
             <a href="#" class="btn btn-lg btn-outline">
               <i class="fa fa-download"></i>
               Este boton puede borrarse o vinvularlo a una pagina que hable más de "nosotros"
             </a>
-          </div>
+          </div> -->
         </div>
       </div>
     </section>
@@ -245,21 +248,21 @@
     </section>
 
 {% endblock %}
-
+{% block  localizar%}
     <!-- Footer -->
     <footer class="text-center">
       <div class="footer-above">
         <div class="container">
           <div class="row">
             <div class="footer-col col-md-4">
-              <h3>Localizaciones</h3>
-              <h4>Mercados Sobre Ruedas</h4>
-              <p> Lunes----> Libertad Parte Baja
-              <br>Martes----> Col. 70/76
-              <br>Miercoles----> Col. Del Rio Parte Baja
-              <br>Viernes----> Buena Vista
-              <br>Sabado----> Col. Del Rio Parte Baja & Otay Calle #15
-              <br>Domingo----> Iglesia Soledad Orozco & Otay </p>
+              <h3 >Localizaciones</h3>
+              <h4 >Mercados Sobre Ruedas</h4>
+              <p> Lunes <a class="btn alert-dark" href="https://www.google.com.mx/maps/place/Catorceava+944-558,+Libertad,+22400+Tijuana,+B.C./@32.5358549,-117.0098359,3a,75y,150.24h,87.49t/data=!3m7!1e1!3m5!1sq8xiTPVasldk7uPREyFEfA!2e0!3e11!7i13312!8i6656!4m13!1m7!3m6!1s0x80d940b01044e21b:0x7a560726da6b7d44!2sLibertad,+Insurgentes,+Tijuana,+B.C.!3b1!8m2!3d32.5398258!4d-116.8801847!3m4!1s0x80d9485e0e67ec4b:0x56dfcd3eb374d70!8m2!3d32.5358921!4d-117.0098031" role="button">Libertad Parte Baja</a>
+              <br>Martes<a class="btn alert-dark" href="https://www.google.com.mx/maps/@32.5386422,-116.9853477,3a,75y,268.72h,95.92t/data=!3m6!1e1!3m4!1s2h0pMme2jNwDOFHyezb0Iw!2e0!7i13312!8i6656" role="button">Col. 70/76</a>
+              <br>Miercoles<a class="btn alert-dark" href="https://www.google.com.mx/maps/@32.5329139,-116.9916141,3a,75y,278.42h,91.41t/data=!3m6!1e1!3m4!1sQzYeeyjNFkRHr7jcuyY5KQ!2e0!7i13312!8i6656" role="button">Col. Del Rio Parte Baja</a>
+              <br>Viernes<a class="btn alert-dark" href="https://www.google.com.mx/maps/@32.5194787,-116.990461,3a,75y,192.13h,87.86t/data=!3m9!1e1!3m7!1sfOktwRR1q79TNigdWDW9oA!2e0!7i13312!8i6656!9m2!1b1!2i41" role="button">Buena Vista</a>
+              <br>Sabado<a class="btn alert-dark" href="https://www.google.com.mx/maps/@32.5402218,-116.9271946,3a,75y,161.91h,85.38t/data=!3m10!1e1!3m8!1sMBkzivZHNjlWZ5eQU0MyGg!2e0!6s%2F%2Fgeo2.ggpht.com%2Fcbk%3Fpanoid%3DMBkzivZHNjlWZ5eQU0MyGg%26output%3Dthumbnail%26cb_client%3Dmaps_sv.tactile.gps%26thumb%3D2%26w%3D203%26h%3D100%26yaw%3D19.6091%26pitch%3D0%26thumbfov%3D100!7i13312!8i6656!9m2!1b1!2i41" role="button">Otay Calle #15</a><a class="btn alert-dark" href="https://www.google.com.mx/maps/@32.5309594,-116.9926981,3a,75y,137.7h,91.98t/data=!3m6!1e1!3m4!1siMwpQFmXkUrzdDJTtCycgg!2e0!7i13312!8i6656" role="button">Col. Del Rio Parte Baja</a>
+              <br>Domingo</p><a class="btn alert-dark" href="https://www.google.com.mx/maps/@32.5287819,-116.993862,3a,75y,70.8h,83.01t/data=!3m6!1e1!3m4!1sBjv8xQTFI6TACh_21yPCCw!2e0!7i13312!8i6656" role="button">Iglesia Soledad Orozco </a><a class="btn alert-dark" href="https://www.google.com.mx/maps/@32.5478564,-116.9288397,3a,75y,25.42h,81.34t/data=!3m9!1e1!3m7!1sL9kZqLer_B1SGAAGWCzKbQ!2e0!7i13312!8i6656!9m2!1b1!2i41" role="button">Otay </a>
             </div>
             <div class="footer-col col-md-4">
               <!-- <h3>Paginas WEB</h3> -->
@@ -296,7 +299,7 @@
         </div>
       </div>
     </footer>
-
+{% endblock %}
     <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
     <div class="scroll-top d-lg-none">
       <a class="btn btn-primary js-scroll-trigger" href="#page-top">
@@ -319,6 +322,7 @@
             <div class="row">
               <div class="col-lg-8 mx-auto">
                 <div class="modal-body">
+                  <FONT FACE="impact" SIZE=10 COLOR="red">¡Realiza tu Pedido {{user.username}}!</FONT>
                   <h2>Tamales de Res, Pollo y Puerco en salsa verde </h2>
                   <hr class="star-primary">
                   <img class="img-fluid img-centered" src="img/portfolio/tamal3.png" alt="">
@@ -363,18 +367,27 @@
             <div class="row">
               <div class="col-lg-8 mx-auto">
                 <div class="modal-body">
+                  <FONT FACE="impact" SIZE=10 COLOR="red">¡Realiza tu Pedido {{user.username}}!</FONT>
                   <h2>Tamales de puerco</h2>
                   <hr class="star-primary">
                   <img class="img-fluid img-centered" src="img/portfolio/tamal2.png" alt="">
                   <p>Precio: $18.00
-                    <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Registrarse como usuario</a>. Si no te registras no contaras con los grandes veneficios de ser cliente de frecuente</p>
-                  <ul class="list-inline item-details">
+                    {% if user.is_authenticated %}
+                    <!-- link para registrarse como usuario -->
                     <li>
                       <strong>
-                        <a href="http://startbootstrap.com">Realizar pedido</a>
+                        <!-- link para realizar pedido -->
+                        <a href="/tamales/lista">Realizar pedido</a>
                       </strong>
                     </li>
-                  </ul>
+                    {% else %}
+                    <li>
+                      <strong>
+                        <a href="/accounts/register">Registrarse como usuario</a>Si no te registras no contaras con los grandes veneficios de ser cliente de frecuente</p>
+                      </strong>
+                    </li>
+                    {% endif %}
+
                   <button class="btn btn-success" type="button" data-dismiss="modal">
                     <i class="fa fa-times"></i>
                     Cerrar</button>
@@ -397,18 +410,26 @@
             <div class="row">
               <div class="col-lg-8 mx-auto">
                 <div class="modal-body">
+                  <FONT FACE="impact" SIZE=10 COLOR="red">¡Realiza tu Pedido {{user.username}}!</FONT>
                   <h2>Tamales de de pollo</h2>
                   <hr class="star-primary">
                   <img class="img-fluid img-centered" src="img/portfolio/tamal.png" alt="">
                   <p>Precio: $18.00
-                    <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Registrarse como Usuario</a>. Contamos con servicio a domicilio los 7 dias de la semana</p>
-                  <ul class="list-inline item-details">
+                    {% if user.is_authenticated %}
+                    <!-- link para registrarse como usuario -->
                     <li>
                       <strong>
-                        <a href="http://startbootstrap.com">Realizar pedido</a>
+                        <!-- link para realizar pedido -->
+                        <a href="/tamales/lista">Realizar pedido</a>
                       </strong>
                     </li>
-                  </ul>
+                    {% else %}
+                    <li>
+                      <strong>
+                        <a href="/accounts/register">Registrarse como usuario</a>Si no te registras no contaras con los grandes veneficios de ser cliente de frecuente</p>
+                      </strong>
+                    </li>
+                    {% endif %}
                   <button class="btn btn-success" type="button" data-dismiss="modal">
                     <i class="fa fa-times"></i>
                     Cerrar</button>
@@ -431,18 +452,26 @@
             <div class="row">
               <div class="col-lg-8 mx-auto">
                 <div class="modal-body">
+                  <FONT FACE="impact" SIZE=10 COLOR="red">¡Realiza tu Pedido {{user.username}}!</FONT>
                   <h2>Tamal de Fresa</h2>
                   <hr class="star-primary">
                   <img class="img-fluid img-centered" src="img/portfolio/fresa.png" alt="">
-                  <p>precio: $18.00
-                    <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Registrarse como Usuario</a>.Te invitamos a consumir nuestros productos </p>
-                  <ul class="list-inline item-details">
+                  <p>Precio: $18.00
+                    {% if user.is_authenticated %}
+                    <!-- link para registrarse como usuario -->
                     <li>
                       <strong>
-                        <a href="http://startbootstrap.com">Realizar Pedido</a>
+                        <!-- link para realizar pedido -->
+                        <a href="/tamales/lista">Realizar pedido</a>
                       </strong>
                     </li>
-                  </ul>
+                    {% else %}
+                    <li>
+                      <strong>
+                        <a href="/accounts/register">Registrarse como usuario</a>Si no te registras no contaras con los grandes veneficios de ser cliente de frecuente</p>
+                      </strong>
+                    </li>
+                    {% endif %}
                   <button class="btn btn-success" type="button" data-dismiss="modal">
                     <i class="fa fa-times"></i>
                     Cerrar</button>
@@ -465,18 +494,26 @@
             <div class="row">
               <div class="col-lg-8 mx-auto">
                 <div class="modal-body">
+                  <FONT FACE="impact" SIZE=10 COLOR="red">¡Realiza tu Pedido {{user.username}}!</FONT>
                   <h2>Tamal de Piña</h2>
                   <hr class="star-primary">
                   <img class="img-fluid img-centered" src="img/portfolio/pina.png" alt="">
-                  <p>precio: $18.00
-                    <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Registrarse como Usuario</a>. Que no te digan que estan buenos ¡COMPRUEBALO!</p>
-                  <ul class="list-inline item-details">
+                  <p>Precio: $18.00
+                    {% if user.is_authenticated %}
+                    <!-- link para registrarse como usuario -->
                     <li>
                       <strong>
-                        <a href="http://startbootstrap.com">Realizar Pedidop</a>
+                        <!-- link para realizar pedido -->
+                        <a href="/tamales/lista">Realizar pedido</a>
                       </strong>
                     </li>
-                    </ul>
+                    {% else %}
+                    <li>
+                      <strong>
+                        <a href="/accounts/register">Registrarse como usuario</a>Si no te registras no contaras con los grandes veneficios de ser cliente de frecuente</p>
+                      </strong>
+                    </li>
+                    {% endif %}
                   <button class="btn btn-success" type="button" data-dismiss="modal">
                     <i class="fa fa-times"></i>
                     Cerrar</button>
@@ -499,18 +536,26 @@
             <div class="row">
               <div class="col-lg-8 mx-auto">
                 <div class="modal-body">
+                  <FONT FACE="impact" SIZE=10 COLOR="red">¡Realiza tu Pedido {{user.username}}!</FONT>                  <!-- <h1>¡Realiza tu orden {{user.username}}!</h1> -->
                   <h2>Tamal de Rajas C/Queso</h2>
                   <hr class="star-primary">
                   <img class="img-fluid img-centered" src="img/portfolio/rajas.png" alt="">
-                  <p>precio: $18.00
-                    <a href="https://sellfy.com/p/8Q9P/jV3VZ/">registrarse como Usuario</a>. Los tamales son como el ALKA-SELTZER el que los prueda REPITE</p>
-                  <ul class="list-inline item-details">
+                  <p>Precio: $18.00
+                    {% if user.is_authenticated %}
+                    <!-- link para registrarse como usuario -->
                     <li>
                       <strong>
-                        <a href="http://startbootstrap.com">Realizar Pedido</a>
+                        <!-- link para realizar pedido -->
+                        <a href="/tamales/lista">Realizar pedido</a>
                       </strong>
                     </li>
-                    </ul>
+                    {% else %}
+                    <li>
+                      <strong>
+                        <a href="/accounts/register">Registrarse como usuario</a>Si no te registras no contaras con los grandes veneficios de ser cliente de frecuente</p>
+                      </strong>
+                    </li>
+                    {% endif %}
                   <button class="btn btn-success" type="button" data-dismiss="modal">
                     <i class="fa fa-times"></i>
                     Cerrar</button>
