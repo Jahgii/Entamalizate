@@ -1,4 +1,63 @@
-<form class="" action="" method="post">{% csrf_token %}
-  <p>Estas seguro que quieres eliminar "{{object}}""  ?</p>
-  <input type="submit" name="" value="Confirmar">
-</form>
+{% extends "home.html"%}
+{% load static %}
+{% block Navegador %}
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand js-scroll-trigger" href="#page-top">Eliminar Pedido</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="/">HOME</a>
+        </li>
+      </ul>
+    </div>
+    </div>
+  </nav>
+{% endblock %}
+  {% block Cabecera %}
+<header class="masthead">
+    <div class="container">
+      <h1>Tamales</h1>
+      <h4>"El Sobrerito"</h4>
+      <!-- <span class="name">¡Bienvenido!</span> -->
+      <img class="img-fluid" src="{% static 'img/BULL.png' %}" alt="">
+      {% if user.is_authenticated %}
+      <div class="intro-text">
+        <span class="name">¡PRECAUCION {{user.username}}!</span>
+        <hr class="star-light">
+        <span class="skills"> ESTAS A PUNTO DE ELIMINAR TU PEDIDO </span>
+        <p>SI LO ELIMINAS NO HAY DEVOLUCION DE DINERO</p>
+        <form class="" action="" method="post">{% csrf_token %}
+          <p>Estas seguro que quieres eliminar "{{object}}""  ?</p>
+          <input type="submit" name="" value="Confirmar">
+          <input type="submit" name="" href="/tamales/lista/" value="CANCELAR">
+        </form>
+        <br></br>
+      </div>
+      {% else %}
+      <div class="intro-text">
+        <span class="name">¡Bienvenido Anonimo!</span>
+        <hr class="star-light">
+        <span class="skills"> ¿A QUE NO PUEDES PROBAR SOLO UNO? </span>
+        <p>¿PORQUE SON COMO EL ALKA-SELTZER?</p>
+        <br>EL QUE LO PRUEBA REPITE</br>
+      </div>
+      {% endif %}
+    </div>
+  </header>
+{% endblock %}
+{% block Nosotros %}
+
+{% endblock %}
+
+{% block Contacto %}
+
+{% endblock %}
+
+{% block Grid %}
+{% endblock %}
+{% block localizar%}
+{% endblock %}

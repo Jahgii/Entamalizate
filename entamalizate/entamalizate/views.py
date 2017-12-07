@@ -9,6 +9,6 @@ def home(request):
 def Pedido(request):
     print request
     num=12
-    return render(request, 'Pedidos.html', {'Num': num})
+    return render(request, 'home.html', {'Num': num})
 
 # Create your views here.
