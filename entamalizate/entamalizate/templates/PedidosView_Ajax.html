@@ -1,0 +1,186 @@
+{% extends "home.html"%}
+
+{%block script%}
+<script>
+
+function getParameterByName(name, url) {
+  if (!url) url = window.location.href;
+  name = name.replace(/[\[\]]/g, "\\$&");
+  var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+      results = regex.exec(url);
+  if (!results) return null;
+  if (!results[2]) return '';
+  return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+$(document).ready(function(){
+
+  console.log("working");
+  var query = getParameterByName('q');
+  console.log(query);
+  var nextLibroUrl;
+  var con = 0;
+
+  function attachLibro(librosValue, prepend){
+    var librosUser = librosValue.user.username;
+    var librosId = librosValue.ID_Pedido;
+    console.log("Entro en attach");
+      if (prepend==true){
+        $("#ajax_libros").prepend(
+
+          "<div class='card-deck'>"+
+            "<div class='card'>"+
+              "<img class='card-img-top' src='...' alt=''>"+
+              "<div class='card-block'>"+
+                "<h4 class='card-title'>Titulo: "+ librosId +" </h4>"+
+                "<p class='card-text'>Usuario: "+ librosUser +" </p>"+
+                "<p class='card-text'>Autor: </p>"+
+              "</div>"+
+              "<div class='card-footer'>"+
+                "<small class='text-muted'>Dia creado: Pie </small>"+
+              "</div>"+
+            "</div>"+
+          "</div>"+
+          "<br>"
+        )
+      }else{
+        $("#ajax_libros").append(
+          "<div class='card-deck'>"+
+            "<div class='card'>"+
+              "<img class='card-img-top' src='...' alt=''>"+
+              "<div class='card-block'>"+
+                "<h4 class='card-title'>Titulo: "+ librosId +" </h4>"+
+                "<p class='card-text'>Usuario: "+ librosUser +" </p>"+
+                "<p class='card-text'>Autor: </p>"+
+              "</div>"+
+              "<div class='card-footer'>"+
+                "<small class='text-muted'>Dia creado: Pie </small>"+
+              "</div>"+
+            "</div>"+
+          "</div>"+
+          "<br>"
+        )
+      }
+    }
+    function fetchLibros(url){
+      console.log("fetching...");
+      var fetchUrl;
+      if (!url){
+        fetchUrl='/api/tamales/?q=somequery';
+      }else{
+        fetchUrl=url
+      }
+      $.ajax({
+        url: fetchUrl,
+        data:{
+          'q': query
+        },
+        method: "GET",
+        success: function(data){
+          console.log(data);
+          nextLibroUrl = data.next;
+          $.each(data.results, function(key, value){
+            var librosKey = key;
+            attachLibro(value);
+          });
+        },
+        error: function(data){
+          console.log("error");
+          console.log(data);
+        }
+      });
+    }
+
+    fetchLibros();
+
+    $("#loadmore").click(function(event){
+      event.preventDefault();
+      console.log("click me")
+      if (nextLibroUrl){
+        fetchLibros(nextLibroUrl);
+      }
+      // Cargar mas tweets
+    })
+
+    $("#libro-form").submit(function(event){
+     event.preventDefault();
+     var this_ = $(this);
+     console.log(event);
+     console.log(this_.serialize());
+     var formData = this_.serialize();
+
+       $.ajax({
+         url: "/api/tamales/create/",
+         data:formData,
+         method: "POST",
+         success: function(data){
+           this_.find("#id_content").val("");
+           attachLibro(data, true);
+         },
+         error: function(data){
+           console.log("error");
+           console.log(data);
+           console.log(data.statusText);
+           console.log(data.status);
+         }
+       });
+   })
+
+
+  });
+
+</script>
+{%endblock script%}
+
+
+{% block Navegador %}
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand js-scroll-trigger" href="#page-top">Pedidos</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+
+        <i class="fa fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+
+      </div>
+    </div>
+  </nav>
+{% endblock %}
+
+{% block Cabecera %}
+
+{% endblock %}
+
+{% block Nosotros %}
+
+{% endblock %}
+
+{% block Contacto %}
+
+{% endblock %}
+
+{% block Grid %}
+<hr><hr><hr><hr><hr><hr><hr>
+              <!-- Los datos te los estoy enviando en la variable: object_list  -->
+<div class="container">
+  Buscar: {% include "Busqueda.html" %}
+</div>
+
+{% if not request.GET.q %}
+  <div class="">
+    {%include "form.html" with form=create_form action_url=create_url btn_title='Libro' form_id='libro-form'%}
+  </div>
+{% endif %}
+<div class="container">
+  <h1>Pedidos</h1>
+  <div class="container" class="post" id="ajax_libros">
+    <hr>
+  </div>
+  <hr>
+</div>
+
+
+<div class="container">
+  <a class="btn btn-success" href="#" id='loadmore'>Cargar mas libros</a>
+</div>
+{% endblock %}

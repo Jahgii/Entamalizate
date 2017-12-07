@@ -34,14 +34,14 @@ from Tamales.views import Pedido_ProductosUpdateView, PedidoCreateView, Pedido_P
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$',      views.home, name='home'),
-        #Funciones
-    url(r'^pedido$',            views.Pedido, name='pedido'),
-    url(r'^tamales/ordenar$',   Hacer_Pedido, name='VistaOrdenes'),
+        #Funciones no se usaran ya que haremos todo con vistas
+    # url(r'^pedido$',            views.Pedido, name='pedido'),
+    # url(r'^tamales/ordenar$',   Hacer_Pedido, name='VistaOrdenes'),
         #Vistas
     url(r'^tamales/lista/detalle$',                      Pedido_ProductosListView.as_view(),   name='pedido_productos_lista'),
     url(r'^tamales/lista$',                              PedidosListView.as_view(),            name='pedidos_lista'),
-    url(r'^tamales/orden/(?P<pk>\d+)/delete/$',          PedidoDeleteView.as_view(),           name='orden_delete'),
-    url(r'^tamales/orden/create/$',                      PedidoCreateView.as_view(),           name='orden_create'),
+    url(r'^tamales/orden/(?P<pk>\d+)/delete/$',          PedidoDeleteView.as_view(),           name='pedidos_delete'),
+    url(r'^tamales/orden/create/$',                      PedidoCreateView.as_view(),           name='pedidos_create'),
     url(r'^tamales/orden/producto/(?P<pk>\d+)/delete/$', Pedido_ProductosDeleteView.as_view(), name='producto_delete'),
     url(r'^tamales/orden/producto/(?P<pk>\d+)/create/$', Pedido_ProductosCreateView.as_view(), name='producto_create'),
     url(r'^tamales/orden/producto/(?P<pk>\d+)/update/$', Pedido_ProductosUpdateView.as_view(), name='producto_update'),

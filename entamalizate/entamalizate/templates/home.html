@@ -42,7 +42,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#portfolio">!Ordena ya¡</a>
+              <a class="nav-link js-scroll-trigger" href="#portfolio">!Menu Tamales¡</a>
             </li>
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#about">Acerca de</a>
@@ -50,6 +50,15 @@
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#contact">Contáctanos</a>
             </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/logout">Cerrar sesion</a>
+            </li>
+            {% else %}
+              <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="/login">Login</a>
+              </li>
+            {% endif %}
           </ul>
         </div>
       </div>
@@ -65,13 +74,23 @@
           <h4>"El Sobrerito"</h4>
           <!-- <span class="name">¡Bienvenido!</span> -->
           <img class="img-fluid" src="{% static 'img/BULL.png' %}" alt="">
+          {% if user.is_authenticated %}
           <div class="intro-text">
-            <span class="name">¡Bienvenido!</span>
+            <span class="name">¡Bienvenido {{user.username}}!</span>
             <hr class="star-light">
             <span class="skills"> ¿A QUE NO PUEDES PROBAR SOLO UNO? </span>
             <p>¿PORQUE SON COMO EL ALKA-SELTZER?</p>
             <br>EL QUE LO PRUEBA REPITE</br>
           </div>
+          {% else %}
+          <div class="intro-text">
+            <span class="name">¡Bienvenido Anonimo!</span>
+            <hr class="star-light">
+            <span class="skills"> ¿A QUE NO PUEDES PROBAR SOLO UNO? </span>
+            <p>¿PORQUE SON COMO EL ALKA-SELTZER?</p>
+            <br>EL QUE LO PRUEBA REPITE</br>
+          </div>
+          {% endif %}
         </div>
       </header>
 
@@ -285,7 +304,9 @@
       </a>
     </div>
 
-    <!-- Portfolio Modals (Posiblemente esto se borre)-->
+    <!-- Navegador Modals -->
+
+    <!-- Grid Modals: Son las ventanas modales que aparecen al darle click a las imagenes -->
     <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -304,18 +325,21 @@
                   <p>Precio: $18.00
                     <a href=""</p>
                   <ul class="list-inline item-details">
-                    <!-- link para registrarse para ususario -->
-                    <li>
-                      <strong>
-                        <a href="http://startbootstrap.com">Registrarse como usuario</a>
-                      </strong>
-                    </li>
+                    {% if user.is_authenticated %}
+                    <!-- link para registrarse como usuario -->
                     <li>
                       <strong>
                         <!-- link para realizar pedido -->
-                        <a href="http://startbootstrap.com">Realizar pedido</a>
+                        <a href="/tamales/lista">Realizar pedido</a>
                       </strong>
                     </li>
+                    {% else %}
+                    <li>
+                      <strong>
+                        <a href="/accounts/register">Registrarse como usuario</a>
+                      </strong>
+                    </li>
+                    {% endif %}
                   </ul>
                   <button class="btn btn-success" type="button" data-dismiss="modal">
                     <i class="fa fa-times"></i>
@@ -498,7 +522,9 @@
       </div>
     </div>
 
-    <!-- Bootstrap core JavaScript -->
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
     <script src="{% static 'static/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
@@ -506,11 +532,15 @@
     <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
 
     <!-- Contact Form JavaScript (Posiblemente borre esta sección de código)-->
-    <script src="js/jqBootstrapValidation.js"></script>
-    <script src="js/contact_me.js"></script>
+    <script href="js/jqBootstrapValidation.js"></script>
 
     <!-- Custom scripts for this template -->
     <script src="{% static 'js/freelancer.min.js' %}"></script>
+
+
+    {% block script %}
+    {% endblock %}
+
 
   </body>
 

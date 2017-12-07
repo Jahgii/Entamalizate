@@ -81,8 +81,8 @@ class Pedido_ProductosListView(FormUserNeededMixin, ListView):
 
             #Clase para mostrar una lista de pedidos
 class PedidosListView(FormUserNeededMixin, ListView):
-    template_name = "PedidosView.html"
-    #queryset = Pedido_Productos.objects.all()
+    template_name = "PedidosView_Ajax.html"
+
     def get_queryset(self, *args, **kwargs):
         qs = Pedidos.objects.all().order_by("-pk")
         print self.request.GET
@@ -94,12 +94,12 @@ class PedidosListView(FormUserNeededMixin, ListView):
                           )
         return qs.filter(user=self.request.user)
 
-        def get_context_data(self, *args, **kwargs):
-            context = super(Pedido_ProductosListView, self).get_context_data(*args, **kwargs)
-            print context
-            context['create_form'] = PedidosProductosModelForm()
-            context['create_url'] = reverse_lazy("VistaOrdenes")
-            return context
+    def get_context_data(self, *args, **kwargs):
+        context = super(PedidosListView, self).get_context_data(*args, **kwargs)
+        print context
+        context['create_form'] = PedidosModelForm()
+        context['create_url'] = reverse_lazy("pedidos_create")
+        return context
 
         #funciones definidas no se usan
 def Registro_orden(request):
