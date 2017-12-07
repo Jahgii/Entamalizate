@@ -7,7 +7,8 @@ from django.shortcuts import render
 from .models import (Productos,
                      Clientes,
                      Pedido_Productos,
-                     Usuarios, Pedidos,
+                     Usuarios,
+                     Pedidos,
                      Metodo_Pago)
 
 from django.views.generic import    (ListView,
@@ -32,7 +33,7 @@ User = get_user_model()
 class PedidoDeleteView(LoginRequiredMixin, DeleteView):
     model = Pedidos
     template_name = "Tamales/delete_confirm.html"
-    success_url = reverse_lazy("VistaOrdenes")
+    success_url = reverse_lazy("pedidos_lista")
 
 class Pedido_ProductosDeleteView(LoginRequiredMixin, DeleteView):
     model = Pedido_Productos
@@ -80,7 +81,7 @@ class Pedido_ProductosListView(FormUserNeededMixin, ListView):
 
 
             #Clase para mostrar una lista de pedidos
-class PedidosListView(FormUserNeededMixin, ListView):
+class PedidosListView(ListView):
     template_name = "PedidosView_Ajax.html"
 
     def get_queryset(self, *args, **kwargs):
@@ -89,31 +90,14 @@ class PedidosListView(FormUserNeededMixin, ListView):
         query = self.request.GET.get("q", None)
         if query is not None:
             qs = qs.filter(
-                            Q(ID_Pedido__icontains=query) |
-                            Q(user__username__icontains=query)
-                          )
-        return qs.filter(user=self.request.user)
+            Q(ID_Pedido__icontains=query)|
+            Q(user__username__icontains=query)
+            )
+        return qs
 
     def get_context_data(self, *args, **kwargs):
-        context = super(PedidosListView, self).get_context_data(*args, **kwargs)
-        print context
-        context['create_form'] = PedidosModelForm()
-        context['create_url'] = reverse_lazy("pedidos_create")
-        return context
-
-        #funciones definidas no se usan
-def Registro_orden(request):
-    result_set01 = Pedidos.objects.all() #Cliente__ID_Cliente=2 ; filter(Pedido__Cliente=3)
-    result_set02 = Pedido_Productos.objects.all()
-    context = {
-    "Pedidos": result_set01, "Productos_P": result_set02
-    }
-    return render(request, "Tamales/Ordenes.html", context)
-
-def Hacer_Pedido(request):
-    result_set01 = Pedidos.objects.all() #Cliente__ID_Cliente=2 ; filter(Pedido__Cliente=3)
-    result_set02 = Pedido_Productos.objects.all()
-    context = {
-    "Pedidos": result_set01, "Productos_P": result_set02
-    }
-    return render(request, "Pedidos.html", context)
+         context = super(PedidosListView, self).get_context_data(*args, **kwargs)
+         print context
+         context['create_form'] = PedidosModelForm()
+         context['create_url'] = reverse_lazy("pedidos_create")
+         return context

@@ -1,5 +1,5 @@
 from django import forms
-
+from django.contrib.admin import widgets
 from .models import Pedido_Productos, Pedidos
 
 class PedidosProductosModelForm(forms.ModelForm):
@@ -14,13 +14,15 @@ class PedidosProductosModelForm(forms.ModelForm):
             ]
 
 class PedidosModelForm(forms.ModelForm):
-    Fecha_Inicio = forms.DateField(widget= forms.SelectDateWidget(empty_label="Nothing"))
-    Fecha_Final  = forms.DateField(widget= forms.SelectDateWidget(empty_label="Nothing"))
+    # Fecha_Inicio = forms.DateField(widget= forms.SelectDateWidget(empty_label="Nothing"))
+    # Fecha_Final  = forms.DateField(widget= forms.SelectDateWidget(empty_label="Nothing"))
+    
 
     class Meta:
         model = Pedidos
         fields = [
-            #"ID_Pedido",
+            #'user',
+            "ID_Pedido",
             "Cliente",
             "Fecha_Inicio",
             "Fecha_Final",

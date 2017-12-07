@@ -24,7 +24,6 @@ from . import views
 from accounts.views import UserRegisterView
 
     #Funciones
-from Tamales.views import Registro_orden, Hacer_Pedido
 
     #Clases
 from Tamales.views import PedidoDeleteView, Pedido_ProductosDeleteView, Pedido_ProductosCreateView

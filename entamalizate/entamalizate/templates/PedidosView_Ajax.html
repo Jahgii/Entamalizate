@@ -20,44 +20,49 @@ $(document).ready(function(){
   var nextLibroUrl;
   var con = 0;
 
-  function attachLibro(librosValue, prepend){
-    var librosUser = librosValue.user.username;
-    var librosId = librosValue.ID_Pedido;
-    console.log("Entro en attach");
+  function attachLibro(pedidoValue, prepend){
+    var PedidoUser = pedidoValue.user.username;
+    var PedidoId = pedidoValue.ID_Pedido;
+    var PedidoFI = pedidoValue.Fecha_Inicio;
+    var PedidoFF = pedidoValue.Fecha_Final;
       if (prepend==true){
         $("#ajax_libros").prepend(
-
           "<div class='card-deck'>"+
-            "<div class='card'>"+
-              "<img class='card-img-top' src='...' alt=''>"+
-              "<div class='card-block'>"+
-                "<h4 class='card-title'>Titulo: "+ librosId +" </h4>"+
-                "<p class='card-text'>Usuario: "+ librosUser +" </p>"+
-                "<p class='card-text'>Autor: </p>"+
-              "</div>"+
-              "<div class='card-footer'>"+
-                "<small class='text-muted'>Dia creado: Pie </small>"+
-              "</div>"+
-            "</div>"+
-          "</div>"+
-          "<br>"
+             "<div class='card'>"+
+               "<img class='card-img-top' src='...' alt=''>"+
+               "<div class='card-block'>"+
+                 "<h4 class='card-title'>Identificador: "+ PedidoId +" </h4>"+
+                 "<p class='card-text'>Usuario: "+ PedidoUser +" </p>"+
+                 "<p class='card-text'>Fecha de pedido: "+ PedidoFI +" </p>"+
+                 "<p class='card-text'>Fecha de entrega: "+ PedidoFF +" </p>"+
+               "</div>"+
+               "<div class='card-footer'>"+
+                 "<small class='text-muted'>"+  +"</small>"+
+                 "<a href='tamales/orden/'"+PedidoId+"'/delete'>  Eliminar</a> "+
+               "</div>"+
+             "</div>"+
+           "</div>"+
+           "<br>"
         )
+
       }else{
         $("#ajax_libros").append(
           "<div class='card-deck'>"+
-            "<div class='card'>"+
-              "<img class='card-img-top' src='...' alt=''>"+
-              "<div class='card-block'>"+
-                "<h4 class='card-title'>Titulo: "+ librosId +" </h4>"+
-                "<p class='card-text'>Usuario: "+ librosUser +" </p>"+
-                "<p class='card-text'>Autor: </p>"+
-              "</div>"+
-              "<div class='card-footer'>"+
-                "<small class='text-muted'>Dia creado: Pie </small>"+
-              "</div>"+
-            "</div>"+
-          "</div>"+
-          "<br>"
+             "<div class='card'>"+
+               "<img class='card-img-top' src='...' alt=''>"+
+               "<div class='card-block'>"+
+               "<h4 class='card-title'>Identificador: "+ PedidoId +" </h4>"+
+               "<p class='card-text'>Usuario: "+ PedidoUser +" </p>"+
+               "<p class='card-text'>Fecha de pedido: "+ PedidoFI +" </p>"+
+               "<p class='card-text'>Fecha de entrega: "+ PedidoFF +" </p>"+
+               "</div>"+
+               "<div class='card-footer'>"+
+                 "<a href='/tamales/lista/detalle'>  Modificar/Detalle</a> "+ "|"+
+                 "<a href='/tamales/orden/"+ PedidoId +"/delete'>  Eliminar</a> "+
+               "</div>"+
+             "</div>"+
+           "</div>"+
+           "<br>"
         )
       }
     }
@@ -118,7 +123,7 @@ $(document).ready(function(){
          },
          error: function(data){
            console.log("error");
-           console.log(data);
+           console.log("Datos:"+data);
            console.log(data.statusText);
            console.log(data.status);
          }

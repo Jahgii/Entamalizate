@@ -3,6 +3,7 @@ from rest_framework import generics
 from rest_framework import permissions
 
 from Tamales.models import Pedidos
+from .pagination import StandardResultPagination
 from .serializers import PedidoModelSerializer
 
 class PedidoCreateAPIView(generics.CreateAPIView):
@@ -14,13 +15,14 @@ class PedidoCreateAPIView(generics.CreateAPIView):
 
 class PedidoListAPIView(generics.ListAPIView):
     serializer_class = PedidoModelSerializer
+    pagination_class = StandardResultPagination
 
     def get_queryset(self, *args, **kwargs):
-        qs = Pedidos.objects.all().order_by("-Fecha_Final")
+        qs = Pedidos.objects.all().order_by("-ID_Pedido")
         query = self.request.GET.get("q", None)
         if query is not None:
             qs = qs.filter(
-                            Q(ID_Pedido__icontains=query) |
+                            Q(ID_Pedido__icontains=query)|
                             Q(user__username__icontains=query)
                           )
         return qs
