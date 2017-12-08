@@ -19,11 +19,10 @@ $(document).ready(function(){
   console.log(query);
   var nextLibroUrl;
   var total = 0;
-  var con = 0;
 
   function attachLibro(proValue, prepend){
     var proId = proValue.ID;
-    var proProducto = proValue.ID_Pedido;
+    var proProducto = proValue.Producto.Nombre;
     var proCantidad = proValue.Cantidad;
     var proImagen = proValue.Producto.imagen;
 
@@ -33,12 +32,10 @@ $(document).ready(function(){
              "<div class='card'>"+
                "<img class='card-img-top' src='"+ proImagen +"' alt=''>"+
                "<div class='card-block'>"+
-                 "<h4 class='card-title'>Identificador: "+ proId +" </h4>"+
                  "<p class='card-text'>Producto: "+ proProducto +" </p>"+
                  "<p class='card-text'>Cantidad: "+ proCantidad +" </p>"+
                "</div>"+
                "<div class='card-footer'>"+
-
                "</div>"+
              "</div>"+
            "</div>"+
@@ -47,22 +44,21 @@ $(document).ready(function(){
 
       }else{
         $("#ajax_libros").append(
-          if (proId == ){}
              "<div class='card'>"+
                "<img class='card-img-top' src='"+ proImagen +"' alt=''>"+
                "<div class='card-block'>"+
-                 "<h4 class='card-title'>Identificador: "+ proId +" </h4>"+
                  "<p class='card-text'>Producto: "+ proProducto +" </p>"+
                  "<p class='card-text'>Cantidad: "+ proCantidad +" </p>"+
                  "<p class='card-text'>Precio: $18 </p>"+
                  "<p class='card-text'>Total:"+ (18 * proCantidad)  +" </p>"+
                "</div>"+
                "<div class='card-footer'>"+
-
+               "Total a pagar hasta ahora: $"+(total = total + (18 * proCantidad))+ "|     "+
+               "<a class='btn btn-danger' href='/tamales/orden/producto/"+proId+"/delete/' role='button'>Eliminar</a>"+ "|"+
+               "<a class='btn btn-success' href='/tamales/orden/producto/"+proId+"/update/' role='button'>modificar</a>"+
                "</div>"+
              "</div>"+
-             (con = con +1)+
-           (total = total + (18 * proCantidad))+
+
            "<br>"
         )
       }
@@ -171,6 +167,11 @@ $(document).ready(function(){
 </div>
 
 
+<div class="alert alert-success">
+    <a class='btn btn-success' href='/tamales/orden/producto/create/' role='button'>Agregar producto</a>
+  </div>
+
+
 <div class="container">
   <h1>Pedidos</h1>
   <div class="container" class="post" id="ajax_libros">
@@ -184,7 +185,7 @@ $(document).ready(function(){
 
 
 <div class="container">
-  <a class="btn btn-success" href="#" id='loadmore'>Cargar mas libros</a>
+  <a class="btn btn-success" href="#" id='loadmore'>Cargar mas tamales</a>
 </div>
     <!-- Imprime lista de pedidos sin funcionalidades -->
   <!-- <div class="container" class="col">

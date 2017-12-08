@@ -38,25 +38,25 @@ class PedidoDeleteView(LoginRequiredMixin, DeleteView):
 class Pedido_ProductosDeleteView(LoginRequiredMixin, DeleteView):
     model = Pedido_Productos
     template_name = "Tamales/delete_confirm.html"
-    success_url = reverse_lazy("VistaOrdenes")
+    success_url = reverse_lazy("pedido_productos_lista")
 
         #Clases para agregar un pedido y agregar productos.
 class PedidoCreateView(LoginRequiredMixin, FormUserNeededMixin, CreateView):
     form_class = PedidosModelForm
     template_name = "Tamales/PedirPedido.html"
-    success_url = reverse_lazy("VistaOrdenes")
+    success_url = reverse_lazy("pedidos_lista")
 
 class Pedido_ProductosCreateView(FormUserNeededMixin, CreateView):
     form_class = PedidosProductosModelForm
     template_name = "Tamales/PedirPedido.html"
-    success_url = reverse_lazy("VistaOrdenes")
+    success_url = reverse_lazy("pedido_productos_lista")
 
         #Clases para actualizar un pedido y productos contenidos en él.
 class Pedido_ProductosUpdateView(FormUserNeededMixin, UpdateView):
     queryset = Pedido_Productos.objects.all()
     form_class = PedidosProductosModelForm
     template_name = "Tamales/update_view.html"
-    success_url = reverse_lazy("VistaOrdenes")
+    success_url = reverse_lazy("pedido_productos_lista")
 
         #Clases para mostrar una lista de productos en un pedido
 class Pedido_ProductosListView(FormUserNeededMixin, ListView):
@@ -68,6 +68,7 @@ class Pedido_ProductosListView(FormUserNeededMixin, ListView):
         query = self.request.GET.get("q", None)
         if query is not None:
             qs = qs.filter(
+            Q(user__username__icontains=query) |
             Q(Pedido__ID_Pedido__icontains=query)
             )
         return qs.filter(user=self.request.user)

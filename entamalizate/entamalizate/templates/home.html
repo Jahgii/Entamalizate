@@ -51,16 +51,22 @@
               <a class="nav-link js-scroll-trigger" href="#contact">Contáctanos</a>
             </li>
             {% if user.is_authenticated %}
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="/accounts/register/">Registrar</a>
-            </li>
             <!-- <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="/login">Login</a>
+              <a class="nav-link js-scroll-trigger" href="/accounts/register/">Registrar</a>
             </li> -->
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/tamales/lista?q={{user.username}}">Ordenar</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/logout">Cerrar sesión</a>
+            </li>
             {% else %}
-              <li class="nav-item">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/login">Login</a>
+            </li>
+              <!-- <li class="nav-item">
                 <a class="nav-link js-scroll-trigger" href="/login">Login</a>
-              </li>
+              </li> -->
             {% endif %}
           </ul>
         </div>
@@ -74,7 +80,7 @@
     <header class="masthead">
         <div class="container">
           <h1>Tamales</h1>
-          <h4>"El Sobrerito"</h4>
+          <h4>"El Sombrerito"</h4>
           <!-- <span class="name">¡Bienvenido!</span> -->
           <img class="img-fluid" src="{% static 'img/BULL.png' %}" alt="">
           {% if user.is_authenticated %}
@@ -334,7 +340,7 @@
                     <li>
                       <strong>
                         <!-- link para realizar pedido -->
-                        <a href="/tamales/lista">Realizar pedido</a>
+                        <a href="/tamales/lista?q={{user.username}}">Realizar pedido</a>
                       </strong>
                     </li>
                     {% else %}
@@ -377,7 +383,7 @@
                     <li>
                       <strong>
                         <!-- link para realizar pedido -->
-                        <a href="/tamales/lista">Realizar pedido</a>
+                        <a href="/tamales/lista?q={{user.username}}">Realizar pedido</a>
                       </strong>
                     </li>
                     {% else %}
@@ -420,7 +426,7 @@
                     <li>
                       <strong>
                         <!-- link para realizar pedido -->
-                        <a href="/tamales/lista">Realizar pedido</a>
+                        <a href="/tamales/lista?q={{user.username}}">Realizar pedido</a>
                       </strong>
                     </li>
                     {% else %}
@@ -462,7 +468,7 @@
                     <li>
                       <strong>
                         <!-- link para realizar pedido -->
-                        <a href="/tamales/lista">Realizar pedido</a>
+                        <a href="/tamales/lista?q={{user.username}}">Realizar pedido</a>
                       </strong>
                     </li>
                     {% else %}
@@ -504,7 +510,7 @@
                     <li>
                       <strong>
                         <!-- link para realizar pedido -->
-                        <a href="/tamales/lista">Realizar pedido</a>
+                        <a href="/tamales/lista?q={{user.username}}">Realizar pedido</a>
                       </strong>
                     </li>
                     {% else %}

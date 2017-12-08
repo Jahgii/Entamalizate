@@ -19,7 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.static import serve
 
-from .views import home
+from .views import home, Pedido
 from . import views
 from accounts.views import UserRegisterView
 
@@ -33,6 +33,8 @@ from Tamales.views import Pedido_ProductosUpdateView, PedidoCreateView, Pedido_P
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$',      views.home, name='home'),
+    url(r'^accounts/profile/$',      views.Pedido, name='home_p'),
+
         #Funciones no se usaran ya que haremos todo con vistas
     # url(r'^pedido$',            views.Pedido, name='pedido'),
     # url(r'^tamales/ordenar$',   Hacer_Pedido, name='VistaOrdenes'),
@@ -42,7 +44,7 @@ urlpatterns = [
     url(r'^tamales/orden/(?P<pk>\d+)/delete/$',          PedidoDeleteView.as_view(),           name='pedidos_delete'),
     url(r'^tamales/orden/create/$',                      PedidoCreateView.as_view(),           name='pedidos_create'),
     url(r'^tamales/orden/producto/(?P<pk>\d+)/delete/$', Pedido_ProductosDeleteView.as_view(), name='producto_delete'),
-    url(r'^tamales/orden/producto/(?P<pk>\d+)/create/$', Pedido_ProductosCreateView.as_view(), name='producto_create'),
+    url(r'^tamales/orden/producto/create/$', Pedido_ProductosCreateView.as_view(), name='producto_create'),
     url(r'^tamales/orden/producto/(?P<pk>\d+)/update/$', Pedido_ProductosUpdateView.as_view(), name='producto_update'),
         #path
     url(r'^static/(?P<path>.*)$',   serve, {'document_root': settings.STATIC_ROOT}),

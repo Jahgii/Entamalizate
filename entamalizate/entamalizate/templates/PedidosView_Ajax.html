@@ -31,14 +31,14 @@ $(document).ready(function(){
              "<div class='card'>"+
                "<img class='card-img-top' src='...' alt=''>"+
                "<div class='card-block'>"+
-                 "<h4 class='card-title'>Identificador: "+ PedidoId +" </h4>"+
-                 "<p class='card-text'>Usuario: "+ PedidoUser +" </p>"+
-                 "<p class='card-text'>Fecha de pedido: "+ PedidoFI +" </p>"+
-                 "<p class='card-text'>Fecha de entrega: "+ PedidoFF +" </p>"+
+               "<h4 class='card-title'>Identificador: "+ PedidoId +" </h4>"+
+               "<p class='card-text'>Usuario: "+ PedidoUser +" </p>"+
+               "<p class='card-text'>Fecha de pedido: "+ PedidoFI +" </p>"+
+               "<p class='card-text'>Fecha de entrega: "+ PedidoFF +" </p>"+
                "</div>"+
                "<div class='card-footer'>"+
-                 "<small class='text-muted'>"+  +"</small>"+
-                 "<a href='tamales/orden/'"+PedidoId+"'/delete'>  Eliminar</a> "+
+                 "<a href='/tamales/lista/detalle'>  Modificar/Detalle</a> "+ "|"+
+                 "<a href='/tamales/orden/"+ PedidoId +"/delete'>  Eliminar</a> "+
                "</div>"+
              "</div>"+
            "</div>"+
@@ -173,14 +173,10 @@ $(document).ready(function(){
 {% block Grid %}
 <hr><hr><hr><hr><hr><hr><hr>
               <!-- Los datos te los estoy enviando en la variable: object_list  -->
-<<<<<<< HEAD
-<div class="container">
+<!-- <div class="container">
   Buscar: {% include "BusquedaPedidos.html" %}
-=======
-<div class="alert alert-warning">
-  Buscar: {% include "Busqueda.html" %}
->>>>>>> 4f93407f72678e29730e2cf5ef3dec70f2b5a66d
-</div>
+
+</div> -->
 
 {% if not request.GET.q %}
   <div class="alert alert-success">
